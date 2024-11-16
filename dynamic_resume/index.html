@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Resume Builder</title>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Dynamic Resume Builder</h1>
+    
+    <!-- Form Section -->
+    <div class="form-section">
+      <h2>Fill Out Your Details</h2>
+      <form id="resume-form">
+        <!-- Personal Information -->
+        <h3>Personal Information</h3>
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="text" id="title" placeholder="Professional Title" required>
+        <textarea id="description" placeholder="Brief Description" required></textarea>
+
+        <!-- Education -->
+        <h3>Education</h3>
+        <input type="text" id="education-year" placeholder="Year (e.g., 2020-2024)" required>
+        <input type="text" id="education-degree" placeholder="Degree (e.g., BS Software Engineering)" required>
+        <input type="text" id="education-institution" placeholder="Institution Name" required>
+
+        <!-- Work Experience -->
+        <h3>Work Experience</h3>
+        <input type="text" id="work-year" placeholder="Year (e.g., 2023-Present)" required>
+        <input type="text" id="work-title" placeholder="Job Title" required>
+        <input type="text" id="work-company" placeholder="Company Name" required>
+        <textarea id="work-description" placeholder="Brief Description of Job" required></textarea>
+
+        <!-- Skills -->
+        <h3>Skills</h3>
+        <input type="text" id="skills" placeholder="Enter skills separated by commas (e.g., Python, Java)" required>
+
+        <!-- Submit Button -->
+        <button type="submit">Generate Resume</button>
+      </form>
+    </div>
+
+    <!-- Resume Section -->
+    <div class="resume-section" id="resume-section" style="display: none;">
+      <h2>Your Generated Resume</h2>
+      <div class="resume-content">
+        <div id="personal-info">
+          <h3 id="display-name"></h3>
+          <p id="display-title"></p>
+          <p id="display-email"></p>
+          <p id="display-description"></p>
+        </div>
+
+        <div id="education-info">
+          <h3>Education</h3>
+          <p id="display-education-year"></p>
+          <p id="display-education-degree"></p>
+          <p id="display-education-institution"></p>
+        </div>
+
+        <div id="work-info">
+          <h3>Work Experience</h3>
+          <p id="display-work-year"></p>
+          <p id="display-work-title"></p>
+          <p id="display-work-company"></p>
+          <p id="display-work-description"></p>
+        </div>
+
+        <div id="skills-info">
+          <h3>Skills</h3>
+          <ul id="display-skills-list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TypeScript Script -->
+  <script type="module">
+    document.addEventListener('DOMContentLoaded', function () {
+      // Form Elements
+      const form = document.getElementById('resume-form');
+      const resumeSection = document.getElementById('resume-section');
+
+      // Input Fields
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const titleInput = document.getElementById('title');
+      const descriptionInput = document.getElementById('description');
+
+      const educationYearInput = document.getElementById('education-year');
+      const educationDegreeInput = document.getElementById('education-degree');
+      const educationInstitutionInput = document.getElementById('education-institution');
+
+      const workYearInput = document.getElementById('work-year');
+      const workTitleInput = document.getElementById('work-title');
+      const workCompanyInput = document.getElementById('work-company');
+      const workDescriptionInput = document.getElementById('work-description');
+
+      const skillsInput = document.getElementById('skills');
+
+      // Display Elements
+      const displayName = document.getElementById('display-name');
+      const displayTitle = document.getElementById('display-title');
+      const displayEmail = document.getElementById('display-email');
+      const displayDescription = document.getElementById('display-description');
+
+      const displayEducationYear = document.getElementById('display-education-year');
+      const displayEducationDegree = document.getElementById('display-education-degree');
+      const displayEducationInstitution = document.getElementById('display-education-institution');
+
+      const displayWorkYear = document.getElementById('display-work-year');
+      const displayWorkTitle = document.getElementById('display-work-title');
+      const displayWorkCompany = document.getElementById('display-work-company');
+      const displayWorkDescription = document.getElementById('display-work-description');
+
+      const displaySkillsList = document.getElementById('display-skills-list');
+
+      // Form Submission Event
+      form?.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Populate the Resume Section with Form Data
+        displayName.textContent = nameInput.value;
+        displayTitle.textContent = titleInput.value;
+        displayEmail.textContent = emailInput.value;
+        displayDescription.textContent = descriptionInput.value;
+
+        displayEducationYear.textContent = educationYearInput.value;
+        displayEducationDegree.textContent = educationDegreeInput.value;
+        displayEducationInstitution.textContent = educationInstitutionInput.value;
+
+        displayWorkYear.textContent = workYearInput.value;
+        displayWorkTitle.textContent = workTitleInput.value;
+        displayWorkCompany.textContent = workCompanyInput.value;
+        displayWorkDescription.textContent = workDescriptionInput.value;
+
+        // Handle Skills (Split by commas)
+        displaySkillsList.innerHTML = '';
+        skillsInput.value.split(',').forEach(skill => {
+          const listItem = document.createElement('li');
+          listItem.textContent = skill.trim();
+          displaySkillsList.appendChild(listItem);
+        });
+
+        // Show the Resume Section
+        resumeSection.style.display = 'block';
+      });
+
+      // Feather icons replacement
+      feather.replace();
+    });
+  </script>
+</body>
+
+</html>
